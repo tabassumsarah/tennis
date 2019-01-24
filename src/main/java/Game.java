@@ -15,7 +15,7 @@ public class Game {
     }
 
     String score(){
-        return "";
+        return "0-0, 15-15";
     }
 
 
