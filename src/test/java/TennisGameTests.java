@@ -33,4 +33,12 @@ public class TennisGameTests extends TestCase{
         assertEquals("0-0, 0-15", game.score());
     }
 
+    @Test
+    public void testShouldAssertResultThrityZeroAfterPlayerObeScoresTwice(){
+        Game game = new Game("Player1", "Player2");
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player1");
+        assertEquals("0-0, 30-0", game.score());
+    }
+
 }
