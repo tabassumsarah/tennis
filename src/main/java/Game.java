@@ -40,6 +40,9 @@ public class Game {
         if(score.equals("15")){
             return "30";
         }
+        if(score.equals("30")){
+            return "40";
+        }
         return "";
     }
 
