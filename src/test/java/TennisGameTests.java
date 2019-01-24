@@ -87,8 +87,6 @@ public class TennisGameTests extends TestCase{
         game.pointWonBy("Player1");
         game.pointWonBy("Player2");
         assertEquals("0-0, deuce", game.score());
-        game.pointWonBy("Player1");
-        assertEquals("1-0", game.score());
     }
 
 }
