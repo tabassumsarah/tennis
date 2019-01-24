@@ -6,13 +6,11 @@ import java.util.*;
 public class Game {
     String player1;
     String player2;
+
     //need to use a map
     Map<String, String> scoreMap = new HashMap();
-    //need some score variable
-    List<String> score = Arrays.asList("0", "0");
 
     //need to manipulate state of this variable
-
     public Game(String player1, String player2) {
         this.player1 = player1;
         this.player2 = player2;
@@ -34,9 +32,7 @@ public class Game {
             List<String> l = getScoreNow(score, scoreMap.get(player1));
             scoreMap.put(player, l.get(0));
             scoreMap.put(player1, l.get(1));
-
         }
-
     }
 
     private List<String> getScoreNow(String score, String ot) {
@@ -149,14 +145,6 @@ public class Game {
         return newScopeToUpdate;
     }
 
-    private void updateScore(List<String> newScore, int idx) {
-        score.set(0, newScore.get(0));
-        score.set(1, newScore.get(1));
-    }
-
-    private String getCheckScoreForPlayer(int idx) {
-        return score.get(idx);
-    }
 
     String score() {
 
@@ -169,27 +157,19 @@ public class Game {
         }
 
         if (scoreMap.get(player2).equals("advantage")) {
-            return "0-0 advantage player2";
+            return "0-0, advantage Player2";
         }
 
         if (scoreMap.get(player2).equals("Winner")) {
             return "0-1";
         }
-        if (scoreMap.get(player1).equals("deuce")||scoreMap.get(player2).equals("deuce")) {
+        if (scoreMap.get(player1).equals("deuce") || scoreMap.get(player2).equals("deuce")) {
             return "0-0, deuce";
         }
 
 
         return "0-0, " + scoreMap.get(player1) + '-' + scoreMap.get(player2);
-        /*if(score.get(0).equals("Winner")){
-            return "1-0";
-        }
-        if(score.get(1).equals("Winner")){
-            return "0-1";
-        }
-        String scoreResult = score.get(0) + "-" + score.get(1);
 
-        return "0-0, " + scoreResult;*/
     }
 
 
