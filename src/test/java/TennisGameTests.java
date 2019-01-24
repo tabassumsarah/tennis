@@ -23,6 +23,7 @@ public class TennisGameTests extends TestCase{
     public void testShouldAssertResultFifteenZeroAfterPlayerOneScores(){
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player1");
+
         assertEquals("0-0, 15-0", game.score());
     }
 
@@ -30,6 +31,7 @@ public class TennisGameTests extends TestCase{
     public void testShouldAssertResultZeroFifteenAfterPlayerTwoScores(){
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player2");
+
         assertEquals("0-0, 0-15", game.score());
     }
 
@@ -38,6 +40,7 @@ public class TennisGameTests extends TestCase{
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player1");
         game.pointWonBy("Player1");
+        System.out.print(game.newScore());
         assertEquals("0-0, 30-0", game.score());
     }
 
@@ -74,6 +77,16 @@ public class TennisGameTests extends TestCase{
         game.pointWonBy("Player1");
         assertEquals("0-0, 40-0", game.score());
         game.pointWonBy("Player1");
+        System.out.print(game.newScore());
+
+
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player1");
+        assertEquals("0-0, 40-0", game.score());
+        game.pointWonBy("Player1");
+        System.out.print(game.newScore());
+
         assertEquals("1-0", game.score());
     }
 
@@ -86,7 +99,7 @@ public class TennisGameTests extends TestCase{
         game.pointWonBy("Player2");
         game.pointWonBy("Player1");
         game.pointWonBy("Player2");
-        assertEquals("0-0, deuce", game.score());
+        assertEquals("0-0, Deuce", game.score());
     }
 
     @Test
@@ -99,7 +112,7 @@ public class TennisGameTests extends TestCase{
         game.pointWonBy("Player1");
         game.pointWonBy("Player2");
         game.pointWonBy("Player1");
-        assertEquals("0-0, advantage Player1", game.score());
+        assertEquals("0-0, Advantage Player1", game.score());
     }
 
 
@@ -113,7 +126,7 @@ public class TennisGameTests extends TestCase{
         game.pointWonBy("Player1");
         game.pointWonBy("Player2");
         game.pointWonBy("Player2");
-        assertEquals("0-0, advantage Player2", game.score());
+        assertEquals("0-0, Advantage Player2", game.score());
     }
 
     @Test
@@ -126,9 +139,9 @@ public class TennisGameTests extends TestCase{
         game.pointWonBy("Player1");
         game.pointWonBy("Player2");
         game.pointWonBy("Player1");
-        assertEquals("0-0, advantage Player1", game.score());
+        assertEquals("0-0, Advantage Player1", game.score());
         game.pointWonBy("Player2");
-        assertEquals("0-0, deuce", game.score());
+        assertEquals("0-0, Deuce", game.score());
     }
 
     @Test
@@ -142,7 +155,7 @@ public class TennisGameTests extends TestCase{
         game.pointWonBy("Player2");
 
         game.pointWonBy("Player1");
-        assertEquals("0-0, advantage Player1", game.score());
+        assertEquals("0-0, Advantage Player1", game.score());
         game.pointWonBy("Player1");
         assertEquals("1-0", game.score());
     }

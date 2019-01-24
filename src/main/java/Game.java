@@ -4,172 +4,123 @@ import java.util.*;
  * Created by saraht on 24/01/2019.
  */
 public class Game {
-    String player1;
-    String player2;
+
+    private String player1;
+    private String player2;
+
+    private Map<String, Integer> playerMap = new HashMap();
+
+    private List<Score> stateOfScore = new ArrayList<Score>();
 
     //need to use a map
-    Map<String, String> scoreMap = new HashMap();
+    private Map<String, String> gameScoreMap = new HashMap();
+
+    //need to use a map
+    private Map<String, Integer> setScoreMap = new HashMap();
 
     //need to manipulate state of this variable
     public Game(String player1, String player2) {
+
         this.player1 = player1;
         this.player2 = player2;
 
-        scoreMap.put(player1, "0");
-        scoreMap.put(player2, "0");
+        playerMap.put(player1, 0);
+        playerMap.put(player2, 1);
+
+        gameScoreMap.put(player1, "0");
+        gameScoreMap.put(player2, "0");
+
+        stateOfScore.add(0, Score.Zero);
+        stateOfScore.add(1, Score.Zero);
+    }
+
+    private int getOtherPlayer(int player) {
+        return player == 1 ? 0 : 1;
+    }
+
+    private void updateScoreState(List<Score> newState, int currentPlayer, int opponent){
+        stateOfScore.set(currentPlayer, newState.get(0));
+        stateOfScore.set(opponent, newState.get(1));
     }
 
     void pointWonBy(String player) {
-        String score = "";
-        if (player.equals(this.player1)) {
-            score = scoreMap.get(player);
-            List<String> l = getScoreNow(score, scoreMap.get(player2));
-            scoreMap.put(player, l.get(0));
-            scoreMap.put(player2, l.get(1));
 
-        } else {
-            score = scoreMap.get(player);
-            List<String> l = getScoreNow(score, scoreMap.get(player1));
-            scoreMap.put(player, l.get(0));
-            scoreMap.put(player1, l.get(1));
-        }
+        int currentPlayer = playerMap.get(player);
+        int opponent = getOtherPlayer(currentPlayer);
+
+        List<Score> newState = stateOfScore.get(currentPlayer).getNextPoint(stateOfScore.get(opponent));
+        updateScoreState(newState, currentPlayer,opponent);
     }
 
-    private List<String> getScoreNow(String score, String ot) {
-        List<String> newScopeToUpdate = new ArrayList<String>();
-        if (score.equals("0")) {
-            newScopeToUpdate.add(0, "15");
-            newScopeToUpdate.add(1, ot);
-            return newScopeToUpdate;
-        }
-
-        if (score.equals("15")) {
-            newScopeToUpdate.add(0, "30");
-            newScopeToUpdate.add(1, ot);
-            return newScopeToUpdate;
-        }
-
-        if (score.equals("deuce")) {
-            newScopeToUpdate.add(0, "advantage");
-            newScopeToUpdate.add(1, "down");
-            return newScopeToUpdate;
-        }
-        if (score.equals("30")) {
-            if (ot.equals("40")) {
-                newScopeToUpdate.add(0, "deuce");
-                newScopeToUpdate.add(1, "deuce");
-
-            } else {
-                newScopeToUpdate.add(0, "40");
-                newScopeToUpdate.add(1, ot);
-
-            }
-            return newScopeToUpdate;
-        }
-
-
-        if (score.equals("down")) {
-            newScopeToUpdate.add(0, "deuce");
-            newScopeToUpdate.add(1, "deuce");
-            return newScopeToUpdate;
-        }
-
-        if (score.equals("advantage")) {
-            newScopeToUpdate.add(0, "Winner");
-            newScopeToUpdate.add(1, "looser");
-            return newScopeToUpdate;
-        }
-
-        if (score.equals("40")) {
-
-            newScopeToUpdate.add(0, "Winner");
-            newScopeToUpdate.add(1, "looser");
-
-
-            return newScopeToUpdate;
-        }
-
-        return newScopeToUpdate;
+    String getSetScore() {
+        return "0-0";
     }
 
-    // so now this test made this logic seems not ok as i need to compare decuce logic
-    // time to rethink the logic
-    private List<String> getNextScore(String score, String otherScore) {
-        List<String> newScopeToUpdate = new ArrayList<String>();
-        if (score.equals("0")) {
-            newScopeToUpdate.add(0, "15");
-            newScopeToUpdate.add(1, otherScore);
-            return newScopeToUpdate;
-        }
-        if (score.equals("15")) {
-            newScopeToUpdate.add(0, "30");
-            newScopeToUpdate.add(1, otherScore);
-            return newScopeToUpdate;
-        }
-        if (score.equals("30")) {
-            if (otherScore.equals("40")) {
-                newScopeToUpdate.add(0, "deuce");
-                newScopeToUpdate.add(1, "deuce");
+    private String translateScore() {
 
-            } else {
-                newScopeToUpdate.add(0, "40");
-                newScopeToUpdate.add(1, otherScore);
-            }
-            return newScopeToUpdate;
-        }
-        if (score.equals("40")) {
-
-            newScopeToUpdate.add(0, "Winner");
-            newScopeToUpdate.add(1, "looser");
-            return newScopeToUpdate;
+        if (stateOfScore.get(0).equals(Score.Advantage)) {
+            return Score.Advantage.name()+ " "+ this.player1;
         }
 
-        if (score.equals("deuce")) {
-            newScopeToUpdate.add(0, "advantage");
-            newScopeToUpdate.add(1, "down");
-            return newScopeToUpdate;
+        if (stateOfScore.get(1).equals(Score.Advantage)) {
+            return Score.Advantage.name()+ " "+ this.player2;
         }
 
-        if (score.equals("down")) {
-            newScopeToUpdate.add(0, "deuce");
-            newScopeToUpdate.add(1, "deuce");
-            return newScopeToUpdate;
+        if (stateOfScore.get(0).equals(Score.Deuce) || stateOfScore.get(1).equals(Score.Deuce)) {
+            return Score.Deuce.name();
         }
 
-        if (score.equals("advantage")) {
-            newScopeToUpdate.add(0, "Winner");
-            newScopeToUpdate.add(1, "looser");
-            return newScopeToUpdate;
-        }
-
-        return newScopeToUpdate;
+        return stateOfScore.get(0).getPoints() + "-" + stateOfScore.get(1).getPoints();
     }
-
 
     String score() {
+        return getSetScore() + ", " + translateScore();
+    }
 
-        if (scoreMap.get(player1).equals("Winner")) {
-            return "1-0";
+    String newScore() {
+        maintainGameScore();
+        String setScore = setScoreMap.get(this.player1) + "-" + setScoreMap.get(this.player2);
+
+
+        String s = setScore + "," + stateOfScore.get(0).getPoints() + "-" +
+                stateOfScore.get(1).getPoints() + "\n";
+
+        if (stateOfScore.get(0).equals(Score.Winner) || stateOfScore.get(1).equals(Score.Winner)) {
+            stateOfScore.set(0, Score.Zero);
+            stateOfScore.set(1, Score.Zero);
         }
 
-        if (scoreMap.get(player1).equals("advantage")) {
-            return "0-0, advantage Player1";
+        if (gameScoreMap.get(player1).equals("Winner") || gameScoreMap.get(player2).equals("Winner")) {
+            gameScoreMap.put(player1, "0");
+            gameScoreMap.put(player2, "0");
+        }
+        return s;
+    }
+
+    String maintainGameScore() {
+
+        //check tie break
+        //if setScore map is 6 -5 or 5-6
+        //another game
+        //if 6-6
+        //tie breaker played
+
+        if (setScoreMap.get(this.player1) == null) {
+            setScoreMap.put(this.player1, 0);
+        }
+        if (stateOfScore.get(0).equals(Score.Winner)) {
+            setScoreMap.put(this.player1, setScoreMap.get(this.player1) + 1);
         }
 
-        if (scoreMap.get(player2).equals("advantage")) {
-            return "0-0, advantage Player2";
+        if (setScoreMap.get(this.player2) == null) {
+            setScoreMap.put(this.player2, 0);
         }
 
-        if (scoreMap.get(player2).equals("Winner")) {
-            return "0-1";
-        }
-        if (scoreMap.get(player1).equals("deuce") || scoreMap.get(player2).equals("deuce")) {
-            return "0-0, deuce";
+        if (stateOfScore.get(1).equals(Score.Winner)) {
+            setScoreMap.put(this.player2, setScoreMap.get(this.player2) + 1);
         }
 
-
-        return "0-0, " + scoreMap.get(player1) + '-' + scoreMap.get(player2);
-
+        return "";
     }
 
 
