@@ -1,26 +1,26 @@
 /**
  * Created by saraht on 24/01/2019.
  */
+
 import junit.framework.TestCase;
-import org.junit.Before;
 import org.junit.Test;
 
-public class TennisGameTests extends TestCase{
+public class TennisGameTests extends TestCase {
 
     @Test
-    public void testTennisGame(){
+    public void testTennisGame() {
         Game game = new Game("Player1", "Player2");
         assertNotNull(game);
     }
 
     @Test
-    public void testShouldAssertInitialResultIsZeroZero(){
+    public void testShouldAssertInitialResultIsZeroZero() {
         Game game = new Game("Player1", "Player2");
         assertEquals("0-0, 0-0", game.score());
     }
 
     @Test
-    public void testShouldAssertResultFifteenZeroAfterPlayerOneScores(){
+    public void testShouldAssertResultFifteenZeroAfterPlayerOneScores() {
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player1");
 
@@ -28,7 +28,7 @@ public class TennisGameTests extends TestCase{
     }
 
     @Test
-    public void testShouldAssertResultZeroFifteenAfterPlayerTwoScores(){
+    public void testShouldAssertResultZeroFifteenAfterPlayerTwoScores() {
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player2");
 
@@ -36,16 +36,15 @@ public class TennisGameTests extends TestCase{
     }
 
     @Test
-    public void testShouldAssertResultThrityZeroAfterPlayerObeScoresTwice(){
+    public void testShouldAssertResultThrityZeroAfterPlayerObeScoresTwice() {
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player1");
         game.pointWonBy("Player1");
-        System.out.print(game.newScore());
         assertEquals("0-0, 30-0", game.score());
     }
 
     @Test
-    public void testShouldAssertResultZeroThrityAfterPlayerTwoScoresTwice(){
+    public void testShouldAssertResultZeroThrityAfterPlayerTwoScoresTwice() {
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player2");
         game.pointWonBy("Player2");
@@ -53,7 +52,7 @@ public class TennisGameTests extends TestCase{
     }
 
     @Test
-    public void testShouldAssertResultFifteenAllAfterPlayerOneAndTwoScoresOnce(){
+    public void testShouldAssertResultFifteenAllAfterPlayerOneAndTwoScoresOnce() {
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player1");
         game.pointWonBy("Player2");
@@ -61,7 +60,7 @@ public class TennisGameTests extends TestCase{
     }
 
     @Test
-    public void testShouldAssertResultFortyZeroAfterPlayerOneScoresThrice(){
+    public void testShouldAssertResultFortyZeroAfterPlayerOneScoresThrice() {
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player1");
         game.pointWonBy("Player1");
@@ -70,28 +69,34 @@ public class TennisGameTests extends TestCase{
     }
 
     @Test
-    public void testShouldAssertResultOneZeroAfterPlayerOneScoresForty(){
+    public void testShouldAssertResultOneZeroAfterPlayerOneScoresForty() {
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player1");
         game.pointWonBy("Player1");
         game.pointWonBy("Player1");
-        assertEquals("0-0, 40-0", game.score());
         game.pointWonBy("Player1");
-        System.out.print(game.newScore());
-
-
-        game.pointWonBy("Player1");
-        game.pointWonBy("Player1");
-        game.pointWonBy("Player1");
-        assertEquals("0-0, 40-0", game.score());
-        game.pointWonBy("Player1");
-        System.out.print(game.newScore());
-
-        assertEquals("1-0", game.score());
+        assertEquals("1-0, Winner-Looser", game.score());
     }
 
     @Test
-    public void testShouldAssertResultDeuceDeuceAfterBothPlayerScoresThirty(){
+    public void testShouldAssertResultTwoZeroAfterPlayerOneWinsTwoGames() {
+        Game game = new Game("Player1", "Player2");
+
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player1");
+        assertEquals("1-0, Winner-Looser", game.score());
+
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player1");
+        assertEquals("2-0, Winner-Looser", game.score());
+    }
+
+    @Test
+    public void testShouldAssertResultDeuceDeuceAfterBothPlayerScoresThirty() {
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player1");
         game.pointWonBy("Player2");
@@ -103,7 +108,7 @@ public class TennisGameTests extends TestCase{
     }
 
     @Test
-    public void testShouldAssertResultAdvantagePlayer1AfterPlayer1ScoresAdvantage(){
+    public void testShouldAssertResultAdvantagePlayer1AfterPlayer1ScoresAdvantage() {
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player1");
         game.pointWonBy("Player2");
@@ -117,7 +122,7 @@ public class TennisGameTests extends TestCase{
 
 
     @Test
-    public void testShouldAssertResultAdvantagePlayer2AfterPlayer2ScoresAdvantage(){
+    public void testShouldAssertResultAdvantagePlayer2AfterPlayer2ScoresAdvantage() {
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player1");
         game.pointWonBy("Player2");
@@ -130,7 +135,7 @@ public class TennisGameTests extends TestCase{
     }
 
     @Test
-    public void testShouldAssertResultDeuceDownPlayerScores(){
+    public void testShouldAssertResultDeuceDownPlayerScores() {
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player1");
         game.pointWonBy("Player2");
@@ -145,7 +150,7 @@ public class TennisGameTests extends TestCase{
     }
 
     @Test
-    public void testShouldAssertResultWinnerWhenAdvantagePlayerScores(){
+    public void testShouldAssertResultWinnerWhenAdvantagePlayerScores() {
         Game game = new Game("Player1", "Player2");
         game.pointWonBy("Player1");
         game.pointWonBy("Player2");
@@ -157,7 +162,7 @@ public class TennisGameTests extends TestCase{
         game.pointWonBy("Player1");
         assertEquals("0-0, Advantage Player1", game.score());
         game.pointWonBy("Player1");
-        assertEquals("1-0", game.score());
+        assertEquals("1-0, Winner-Looser", game.score());
     }
 
 

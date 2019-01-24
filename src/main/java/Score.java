@@ -4,38 +4,27 @@ import java.util.List;
 /**
  * Created by saraht on 24/01/2019.
  */
-public enum Score {
+enum Score {
 
-    Zero("0")  {
+    Zero("0") {
         List<Score> getNextPoint(Score other) {
             return score(Fifteen, other);
         }
     },
 
-    Fifteen("15")  {
+    Fifteen("15") {
         List<Score> getNextPoint(Score other) {
             return score(Thirty, other);
         }
     },
 
-    Thirty("30"){
+    Thirty("30") {
         List<Score> getNextPoint(Score other) {
             if (other == Forty) {
                 return score(Deuce, Deuce);
             } else {
                 return score(Forty, other);
             }
-        }
-    },
-    Winner("Winner") {
-        List<Score> getNextPoint(Score other) {
-            return score(Winner, Loser);
-        }
-    },
-
-    Loser ("Looser"){
-        List<Score> getNextPoint(Score other) {
-            return score(Loser, Winner);
         }
     },
 
@@ -45,21 +34,33 @@ public enum Score {
         }
     },
 
-    Down ("down"){
+    Down("down") {
         List<Score> getNextPoint(Score other) {
             return score(Deuce, Deuce);
         }
     },
 
-    Deuce ("deuce"){
+    Deuce("deuce") {
         List<Score> getNextPoint(Score other) {
             return score(Advantage, Down);
         }
     },
 
-    Forty ("40") {
+    Forty("40") {
         List<Score> getNextPoint(Score other) {
             return score(Winner, Loser);
+        }
+    },
+
+    Winner("Winner") {
+        List<Score> getNextPoint(Score other) {
+            return score(Winner, Loser);
+        }
+    },
+
+    Loser("Looser") {
+        List<Score> getNextPoint(Score other) {
+            return score(Loser, Winner);
         }
     };
 
@@ -68,17 +69,16 @@ public enum Score {
     Score(String s) {
         points = s;
     }
-    public String getPoints(){
+
+    public String getPoints() {
         return points;
     }
 
-
-    protected List<Score> score(Score one, Score two) {
-
-        List<Score> a = new ArrayList<Score>();
-        a.add(one);
-        a.add(two);
-        return a;
+    protected List<Score> score(Score player, Score opponent) {
+        List<Score> scoreList = new ArrayList<Score>();
+        scoreList.add(player);
+        scoreList.add(opponent);
+        return scoreList;
 
     }
 
