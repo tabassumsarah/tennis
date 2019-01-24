@@ -14,4 +14,10 @@ public class TennisGameTests extends TestCase{
         assertEquals("0-0, 15-15", game.score());
     }
 
+    @Test
+    public void testShouldAssertInitialResultIsZeroZero(){
+        Game game = new Game("Player1", "Player2");
+        assertEquals("0-0, 0-0", game.score());
+    }
+
 }
