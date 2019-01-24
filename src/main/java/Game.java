@@ -37,6 +37,9 @@ public class Game {
         if(score.equals("0")){
             return "15";
         }
+        if(score.equals("15")){
+            return "30";
+        }
         return "";
     }
 
