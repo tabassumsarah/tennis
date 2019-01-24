@@ -82,6 +82,5 @@ enum Score {
 
     }
 
-
     abstract List<Score> getNextPoint(Score other);
 }
