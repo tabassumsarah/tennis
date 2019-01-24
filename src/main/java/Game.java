@@ -33,6 +33,8 @@ public class Game {
         }
     }
 
+    // so now this test made this logic seems not ok as i need to compare decuce logic
+    // time to rethink the logic
     private String getNextScore(String score) {
         if(score.equals("0")){
             return "15";
