@@ -43,6 +43,9 @@ public class Game {
         if(score.equals("30")){
             return "40";
         }
+        if(score.equals("40")){
+            return "Winner";
+        }
         return "";
     }
 
@@ -55,7 +58,15 @@ public class Game {
     }
 
     String score() {
+
+        if(score.get(0).equals("Winner")){
+            return "1-0";
+        }
+        if(score.get(1).equals("Winner")){
+            return "0-1";
+        }
         String scoreResult = score.get(0) + "-" + score.get(1);
+
         return "0-0, " + scoreResult;
     }
 
