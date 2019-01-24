@@ -10,14 +10,27 @@ public class TennisGameTests extends TestCase{
     @Test
     public void testTennisGame(){
         Game game = new Game("Player1", "Player2");
-        game.pointWonBy("Player1");
-        assertEquals("0-0, 15-15", game.score());
+        assertNotNull(game);
     }
 
     @Test
     public void testShouldAssertInitialResultIsZeroZero(){
         Game game = new Game("Player1", "Player2");
         assertEquals("0-0, 0-0", game.score());
+    }
+
+    @Test
+    public void testShouldAssertResultFifteenZeroAfterPlayerOneScores(){
+        Game game = new Game("Player1", "Player2");
+        game.pointWonBy("Player1");
+        assertEquals("0-0, 15-0", game.score());
+    }
+
+    @Test
+    public void testShouldAssertResultZeroFifteenAfterPlayerTwoScores(){
+        Game game = new Game("Player1", "Player2");
+        game.pointWonBy("Player2");
+        assertEquals("0-0, 0-15", game.score());
     }
 
 }
