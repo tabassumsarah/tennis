@@ -64,6 +64,12 @@ public class Game {
             newScopeToUpdate.add(1, ot);
             return newScopeToUpdate;
         }
+
+        if (score.equals("deuce")) {
+            newScopeToUpdate.add(0, "advantage");
+            newScopeToUpdate.add(1, "down");
+            return newScopeToUpdate;
+        }
         if (score.equals("30")) {
             if (ot.equals("40")) {
                 newScopeToUpdate.add(0, "deuce");
@@ -118,10 +124,13 @@ public class Game {
 
             newScopeToUpdate.add(0, "Winner");
             newScopeToUpdate.add(1, "looser");
-
-
             return newScopeToUpdate;
+        }
 
+        if (score.equals("deuce")) {
+            newScopeToUpdate.add(0, "advantage");
+            newScopeToUpdate.add(1, "down");
+            return newScopeToUpdate;
         }
 
         return newScopeToUpdate;
@@ -141,6 +150,15 @@ public class Game {
         if (scoreMap.get(player1).equals("Winner")) {
             return "1-0";
         }
+
+        if (scoreMap.get(player1).equals("advantage")) {
+            return "0-0, advantage Player1";
+        }
+
+        if (scoreMap.get(player2).equals("advantage")) {
+            return "0-0 advantage player2";
+        }
+
         if (scoreMap.get(player2).equals("Winner")) {
             return "0-1";
         }

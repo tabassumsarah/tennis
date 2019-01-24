@@ -89,4 +89,34 @@ public class TennisGameTests extends TestCase{
         assertEquals("0-0, deuce", game.score());
     }
 
+    @Test
+    public void testShouldAssertResultAdvantagePlayer1AfterPlayer1ScoresAdvantage(){
+        Game game = new Game("Player1", "Player2");
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player2");
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player2");
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player2");
+        game.pointWonBy("Player1");
+        assertEquals("0-0, advantage Player1", game.score());
+    }
+    @Test
+    public void testShouldAssertResultDeuceDownPlayerScores(){
+        Game game = new Game("Player1", "Player2");
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player2");
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player2");
+        game.pointWonBy("Player1");
+        game.pointWonBy("Player2");
+        game.pointWonBy("Player1");
+        assertEquals("0-0, advantage Player1", game.score());
+        game.pointWonBy("Player2");
+        assertEquals("0-0, deuce", game.score());
+
+
+    }
+
+
 }
