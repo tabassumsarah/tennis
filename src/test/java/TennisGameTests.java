@@ -7,4 +7,8 @@ import org.junit.Test;
 
 public class TennisGameTests extends TestCase{
 
+    @Test
+    public void testTennisGame(){
+        Game g = new Game();
+    }
 }
