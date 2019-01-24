@@ -37,18 +37,6 @@ public class Game {
 
         }
 
-
-   /*     if (player.equals(this.player1)) {
-
-            score = getCheckScoreForPlayer(0);
-            List<String> scoreList = getNextScore(score,getCheckScoreForPlayer(1));
-            updateScore(scoreList,0);
-
-        } else {
-            score = getCheckScoreForPlayer(1);
-            List<String> scoreList = getNextScore(score,getCheckScoreForPlayer(0));
-            updateScore(scoreList,1);
-        }*/
     }
 
     private List<String> getScoreNow(String score, String ot) {
@@ -80,6 +68,19 @@ public class Game {
                 newScopeToUpdate.add(1, ot);
 
             }
+            return newScopeToUpdate;
+        }
+
+
+        if (score.equals("down")) {
+            newScopeToUpdate.add(0, "deuce");
+            newScopeToUpdate.add(1, "deuce");
+            return newScopeToUpdate;
+        }
+
+        if (score.equals("advantage")) {
+            newScopeToUpdate.add(0, "Winner");
+            newScopeToUpdate.add(1, "looser");
             return newScopeToUpdate;
         }
 
@@ -130,6 +131,18 @@ public class Game {
         if (score.equals("deuce")) {
             newScopeToUpdate.add(0, "advantage");
             newScopeToUpdate.add(1, "down");
+            return newScopeToUpdate;
+        }
+
+        if (score.equals("down")) {
+            newScopeToUpdate.add(0, "deuce");
+            newScopeToUpdate.add(1, "deuce");
+            return newScopeToUpdate;
+        }
+
+        if (score.equals("advantage")) {
+            newScopeToUpdate.add(0, "Winner");
+            newScopeToUpdate.add(1, "looser");
             return newScopeToUpdate;
         }
 
