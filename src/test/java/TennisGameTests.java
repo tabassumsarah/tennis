@@ -9,6 +9,9 @@ public class TennisGameTests extends TestCase{
 
     @Test
     public void testTennisGame(){
-        Game g = new Game();
+        Game game = new Game("Player1", "Player2");
+        game.pointWonBy("Player1");
+        assertEquals("0-0, 15-15", game.score());
     }
+
 }
