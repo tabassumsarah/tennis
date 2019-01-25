@@ -37,10 +37,8 @@ public class Game implements Match {
     public void pointWonBy(String player) {
         int currentPlayer = players.get(player);
         int opponent = getOtherPlayer(currentPlayer);
-
         // Fetching next point from Score enum.
         List<Score> newState = stateOfScore.get(currentPlayer).getNextPoint(stateOfScore.get(opponent));
-
         // Updating scoreState using new data
         updateScoreState(newState, currentPlayer, opponent);
     }
