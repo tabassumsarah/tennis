@@ -58,14 +58,13 @@ public class Game implements Match {
             setTieBreakMode(true);
         }
 
-        //Else translate score
+        //translate score
         return translateScore();
     }
 
     // Updating Match Set result every time a game is win-loose state.
     // This method keeps tracks of games set result
     private void updateMatchSetScore() {
-
         if (stateOfScore.get(players.get(this.player1)).equals(Score.WINNER)) {
             scoreOfGameSet.put(this.player1, scoreOfGameSet.get(this.player1) + 1);
             clearStateOfScore();//game's final state i.e winner-looser, clear the state variable to default
@@ -74,7 +73,6 @@ public class Game implements Match {
             scoreOfGameSet.put(this.player2, scoreOfGameSet.get(this.player2) + 1);
             clearStateOfScore();//game's final state i.e winner-looser, clear the state variable to default
         }
-
     }
 
     private String translateScore() {
@@ -89,14 +87,12 @@ public class Game implements Match {
         if (stateOfScore.get(PLAYER_ONE_NUMBER).equals(Score.DEUCE) || stateOfScore.get(PLAYER_TWO_NUMBER).equals(Score.DEUCE)) {
             return getMatchSetScore() + ", " + Score.DEUCE.name();
         }
-
         // Points for tie break 6-6
         if (scoreOfGameSet.get(this.player1).equals(TIE_BREAK_COUNT) && scoreOfGameSet.get(this.player2).equals(TIE_BREAK_COUNT)) {
             return stateOfScore.get(PLAYER_ONE_NUMBER).getPoints() + "-" + stateOfScore.get(PLAYER_TWO_NUMBER).getPoints();
         } else
             return defaultGameScore;
     }
-
 
     //Returning who is opponent of the current game
     private int getOtherPlayer(int playerNumber) {
