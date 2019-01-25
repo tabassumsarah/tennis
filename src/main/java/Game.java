@@ -62,6 +62,42 @@ public class Game implements Match {
         return translateScore();
     }
 
+    // Updating Match Set result every time a game is win-loose state.
+    // This method keeps tracks of games set result
+    private void updateMatchSetScore() {
+
+        if (stateOfScore.get(players.get(this.player1)).equals(Score.WINNER)) {
+            scoreOfGameSet.put(this.player1, scoreOfGameSet.get(this.player1) + 1);
+            clearStateOfScore();//game's final state i.e winner-looser, clear the state variable to default
+        }
+        if (stateOfScore.get(players.get(this.player2)).equals(Score.WINNER)) {
+            scoreOfGameSet.put(this.player2, scoreOfGameSet.get(this.player2) + 1);
+            clearStateOfScore();//game's final state i.e winner-looser, clear the state variable to default
+        }
+
+    }
+
+    private String translateScore() {
+        String defaultGameScore = getMatchSetScore() + ", " + stateOfScore.get(PLAYER_ONE_NUMBER).getPoints() + "-" + stateOfScore.get(PLAYER_TWO_NUMBER).getPoints();
+        // Points for ongoing game in a set
+        if (stateOfScore.get(PLAYER_ONE_NUMBER).equals(Score.ADVANTAGE)) {
+            return getMatchSetScore() + ", " + Score.ADVANTAGE.name() + " " + this.player1;
+        }
+        if (stateOfScore.get(PLAYER_TWO_NUMBER).equals(Score.ADVANTAGE)) {
+            return getMatchSetScore() + ", " + Score.ADVANTAGE.name() + " " + this.player2;
+        }
+        if (stateOfScore.get(PLAYER_ONE_NUMBER).equals(Score.DEUCE) || stateOfScore.get(PLAYER_TWO_NUMBER).equals(Score.DEUCE)) {
+            return getMatchSetScore() + ", " + Score.DEUCE.name();
+        }
+
+        // Points for tie break 6-6
+        if (scoreOfGameSet.get(this.player1).equals(TIE_BREAK_COUNT) && scoreOfGameSet.get(this.player2).equals(TIE_BREAK_COUNT)) {
+            return stateOfScore.get(PLAYER_ONE_NUMBER).getPoints() + "-" + stateOfScore.get(PLAYER_TWO_NUMBER).getPoints();
+        } else
+            return defaultGameScore;
+    }
+
+
     //Returning who is opponent of the current game
     private int getOtherPlayer(int playerNumber) {
         return playerNumber == PLAYER_TWO_NUMBER ? PLAYER_ONE_NUMBER : PLAYER_TWO_NUMBER;
@@ -83,28 +119,6 @@ public class Game implements Match {
         return scoreOfGameSet.get(player1) + "-" + scoreOfGameSet.get(player2);
     }
 
-    private String translateScore() {
-
-        String defaultGameScore = getMatchSetScore() + ", " + stateOfScore.get(PLAYER_ONE_NUMBER).getPoints() + "-" + stateOfScore.get(PLAYER_TWO_NUMBER).getPoints();
-
-            // Points for ongoing game in a set
-            if (stateOfScore.get(PLAYER_ONE_NUMBER).equals(Score.ADVANTAGE)) {
-                return getMatchSetScore() + ", " + Score.ADVANTAGE.name() + " " + this.player1;
-            }
-            if (stateOfScore.get(PLAYER_TWO_NUMBER).equals(Score.ADVANTAGE)) {
-                return getMatchSetScore() + ", " + Score.ADVANTAGE.name() + " " + this.player2;
-            }
-            if (stateOfScore.get(PLAYER_ONE_NUMBER).equals(Score.DEUCE) || stateOfScore.get(PLAYER_TWO_NUMBER).equals(Score.DEUCE)) {
-                return getMatchSetScore() + ", " + Score.DEUCE.name();
-            }
-
-            // Points for tie break 6-6
-            if (scoreOfGameSet.get(this.player1).equals(TIE_BREAK_COUNT) && scoreOfGameSet.get(this.player2).equals(TIE_BREAK_COUNT)) {
-                return stateOfScore.get(PLAYER_ONE_NUMBER).getPoints() + "-" + stateOfScore.get(PLAYER_TWO_NUMBER).getPoints();
-            }else
-              return defaultGameScore;
-    }
-
     // To verify the state is tie break mode or not
     private boolean getTieBeakFlag() {
         return tieBreakMode;
@@ -112,21 +126,6 @@ public class Game implements Match {
 
     private void setTieBreakMode(boolean state) {
         tieBreakMode = state;
-    }
-
-    // Updating Match Set result every time a game is win-loose state.
-    // This method keeps tracks of games set result
-    private void updateMatchSetScore() {
-
-        if (stateOfScore.get(players.get(this.player1)).equals(Score.WINNER)) {
-            scoreOfGameSet.put(this.player1, scoreOfGameSet.get(this.player1) + 1);
-            clearStateOfScore();//game's final state i.e winner-looser, clear the state variable to default
-        }
-        if (stateOfScore.get(players.get(this.player2)).equals(Score.WINNER)) {
-            scoreOfGameSet.put(this.player2, scoreOfGameSet.get(this.player2) + 1);
-            clearStateOfScore();//game's final state i.e winner-looser, clear the state variable to default
-        }
-
     }
 
     //Default score set to ZERO @seeScore#ZERO
