@@ -35,7 +35,6 @@ public class Game implements Match {
 
     @Override
     public void pointWonBy(String player) {
-
         int currentPlayer = players.get(player);
         int opponent = getOtherPlayer(currentPlayer);
 
