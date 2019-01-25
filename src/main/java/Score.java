@@ -6,61 +6,101 @@ import java.util.List;
  */
 enum Score {
 
-    Zero("0") {
+    ZERO("0") {
         List<Score> getNextPoint(Score other) {
-            return score(Fifteen, other);
+            return score(FIFTEEN, other);
         }
     },
 
-    Fifteen("15") {
+    FIFTEEN("15") {
         List<Score> getNextPoint(Score other) {
-            return score(Thirty, other);
+            return score(THIRTY, other);
         }
     },
 
-    Thirty("30") {
+    THIRTY("30") {
         List<Score> getNextPoint(Score other) {
-            if (other == Forty) {
-                return score(Deuce, Deuce);
+            if (other == FORTY) {
+                return score(DEUCE, DEUCE);
             } else {
-                return score(Forty, other);
+                return score(FORTY, other);
             }
         }
     },
 
-    Advantage("advantage") {
+    ADVANTAGE("advantage") {
         List<Score> getNextPoint(Score other) {
-            return score(Winner, Loser);
+            return score(WINNER, LOSER);
         }
     },
 
-    Down("down") {
+    DOWN("down") {
         List<Score> getNextPoint(Score other) {
-            return score(Deuce, Deuce);
+            return score(DEUCE, DEUCE);
         }
     },
 
-    Deuce("deuce") {
+    DEUCE("deuce") {
         List<Score> getNextPoint(Score other) {
-            return score(Advantage, Down);
+            return score(ADVANTAGE, DOWN);
         }
     },
 
-    Forty("40") {
+    FORTY("40") {
         List<Score> getNextPoint(Score other) {
-            return score(Winner, Loser);
+            return score(WINNER, LOSER);
         }
     },
 
-    Winner("Winner") {
+    WINNER("WINNER") {
         List<Score> getNextPoint(Score other) {
-            return score(Winner, Loser);
+            return score(WINNER, LOSER);
         }
     },
 
-    Loser("Looser") {
+    LOSER("Looser") {
         List<Score> getNextPoint(Score other) {
-            return score(Loser, Winner);
+            return score(LOSER, WINNER);
+        }
+    },
+    TIEBREAK_ZERO("0") {
+        List<Score> getNextPoint(Score other) {
+            return score(TIEBREAK_ONE, other);
+        }
+    },
+    TIEBREAK_ONE("1") {
+        List<Score> getNextPoint(Score other) {
+            return score(TIEBREAK_TWO, other);
+        }
+    },
+    TIEBREAK_TWO("2") {
+        List<Score> getNextPoint(Score other) {
+            return score(TIEBREAK_THREE, other);
+        }
+    },
+    TIEBREAK_THREE("3") {
+        List<Score> getNextPoint(Score other) {
+            return score(TIEBREAK_FOUR, other);
+        }
+    },
+    TIEBREAK_FOUR("4") {
+        List<Score> getNextPoint(Score other) {
+            return score(TIEBREAK_FIVE, other);
+        }
+    },
+    TIEBREAK_FIVE("5") {
+        List<Score> getNextPoint(Score other) {
+            return score(TIEBREAK_SIX, other);
+        }
+    },
+    TIEBREAK_SIX("6") {
+        List<Score> getNextPoint(Score other) {
+            return score(TIEBREAK_SEVEN, other);
+        }
+    },
+    TIEBREAK_SEVEN("7") {
+        List<Score> getNextPoint(Score other) {
+            return score(WINNER, other);
         }
     };
 
