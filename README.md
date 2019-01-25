@@ -69,3 +69,10 @@ More information on tennis scoring can be found here https://en.wikipedia.org/wi
   abstract List<Score> getNextPoint(Score other);
 
 ```
+# Limitation or Could have done better
+- Tie break logic could have been simplified. Could not follow proper TDD when implementing tie break
+- Tie break logic is not tested properly (Only one test)
+- Scoring translation could be of a seperate service.
+- Winning TIE break is not implemented properly.
+
+
