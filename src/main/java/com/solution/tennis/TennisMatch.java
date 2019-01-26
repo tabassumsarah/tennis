@@ -6,4 +6,11 @@ package com.solution.tennis;
 public class TennisMatch {
     public TennisMatch(String player1, String player2) {
     }
+
+    public void pointWonBy(String player) {
+    }
+
+    public String score() {
+        return "0-0,0-0";
+    }
 }
