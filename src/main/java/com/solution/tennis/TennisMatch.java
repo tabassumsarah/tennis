@@ -35,11 +35,11 @@ public class TennisMatch {
     private String translateScore(int player1Score, int player2Score) {
         //Situation: Win
         if (player1Score >= 3 || player2Score >= 3) {
-            if(player1Score==player2Score){
+            if (player1Score == player2Score) {
                 return "0-0," + "deuce";
             }
         }
-        return  "0-0," + runningScore[player1Score] + "-" + runningScore[player2Score];
+        return "0-0," + runningScore[player1Score] + "-" + runningScore[player2Score];
     }
 
     String score() {
