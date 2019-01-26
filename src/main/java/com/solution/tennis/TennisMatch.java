@@ -11,21 +11,21 @@ public class TennisMatch {
 
     private String player1;
     private String player2;
-    List<String> gameScore;
+
+    String[] gameScore = new String[]{"0","0"};
 
     TennisMatch(String player1, String player2) {
         this.player1 = player1;
         this.player2 = player2;
-        gameScore = new ArrayList<String>(Arrays.asList("0", "0"));
     }
 
     void pointWonBy(String player) {
         if (player.equals(this.player1)) {
-            gameScore.add(0, "15");
+            gameScore[0] = "15";
         }
     }
 
     String score() {
-        return "0-0," + gameScore.get(0) + "-" + gameScore.get(1);
+        return "0-0," + gameScore[0] + "-" + gameScore[1];
     }
 }
