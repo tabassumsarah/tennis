@@ -7,5 +7,8 @@ import org.junit.Test;
  */
 
 public class TennisMatchTests {
-
+    @Test
+    public void Should_CreateGame_WhenNoLogic() throws Exception {
+         TennisMatch match = new TennisMatch("Player 1","Player 2");
+    }
 }
