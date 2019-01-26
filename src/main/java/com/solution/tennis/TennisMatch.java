@@ -12,6 +12,9 @@ public class TennisMatch {
     private String player1;
     private String player2;
 
+    private static final String[] runningScore
+            = new String[]{"0", "15", "30", "40"};
+
     private Integer[] gameScore = new Integer[]{0, 0};
 
     TennisMatch(String player1, String player2) {
@@ -30,26 +33,8 @@ public class TennisMatch {
     }
 
 
-    String translateScore(int player1Score, int player2Score) {
-
-        StringBuilder scoreResult = new StringBuilder();
-        if (player1Score == 0) {
-            scoreResult.append("0-");
-        }
-
-        if (player1Score == 1) {
-            scoreResult.append("15-");
-        }
-
-        if (player2Score == 0) {
-            scoreResult.append("0");
-        }
-
-        if (player2Score == 1) {
-            scoreResult.append("15");
-        }
-
-        return "0-0," + scoreResult.toString();
+    private String translateScore(int player1Score, int player2Score) {
+        return "0-0," + runningScore[player1Score]+"-"+runningScore[player2Score];
     }
 
     String score() {
