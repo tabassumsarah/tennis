@@ -29,26 +29,30 @@ public class TennisMatch {
         gameScore[playerId] = gameScore[playerId] + 1;
     }
 
+
+    String translateScore(int player1Score, int player2Score) {
+
+        StringBuilder scoreResult = new StringBuilder();
+        if (player1Score == 0) {
+            scoreResult.append("0-");
+        }
+
+        if (player1Score == 1) {
+            scoreResult.append("15-");
+        }
+
+        if (player2Score == 0) {
+            scoreResult.append("0");
+        }
+
+        if (player2Score == 1) {
+            scoreResult.append("15");
+        }
+
+        return "0-0," + scoreResult.toString();
+    }
+
     String score() {
-        String player1Score = "";
-        String player2Score = "";
-
-        if (gameScore[0] == 0) {
-            player1Score = "0";
-        }
-
-        if (gameScore[0] == 1) {
-            player1Score = "15";
-        }
-
-        if (gameScore[1] == 0) {
-            player2Score = "0";
-        }
-
-        if (gameScore[1] == 1) {
-            player2Score = "15";
-        }
-
-        return "0-0," + player1Score + "-" + player2Score;
+        return translateScore(gameScore[0], gameScore[1]);
     }
 }
