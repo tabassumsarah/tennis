@@ -1,9 +1,5 @@
 package com.solution.tennis;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Created by saraht on 26/01/2019.
  */
@@ -26,6 +22,9 @@ public class TennisMatch {
         if (player.equals(this.player1)) {
             increasePointByOne(0);
         }
+        if (player.equals(this.player2)) {
+            increasePointByOne(1);
+        }
     }
 
     private void increasePointByOne(int playerId) {
@@ -34,7 +33,7 @@ public class TennisMatch {
 
 
     private String translateScore(int player1Score, int player2Score) {
-        return "0-0," + runningScore[player1Score]+"-"+runningScore[player2Score];
+        return "0-0," + runningScore[player1Score] + "-" + runningScore[player2Score];
     }
 
     String score() {
