@@ -24,4 +24,12 @@ public class TennisMatchTests {
         assertEquals("0-0,0-0", match.score());
     }
 
+    @Test
+    public void Should_GetScore15_0_WhenPlayer1Scores() throws Exception {
+        TennisMatch match = new TennisMatch("Player 1","Player 2");
+        assertNotNull(match);
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,15-0", match.score());
+    }
+
 }
