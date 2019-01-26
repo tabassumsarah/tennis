@@ -39,7 +39,7 @@ public class TennisMatch {
                 return "0-0," + "deuce";
             }
         }
-        return "0-0," + runningScore[player1Score] + "-" + runningScore[player2Score];
+        return  "0-0," + runningScore[player1Score] + "-" + runningScore[player2Score];
     }
 
     String score() {
