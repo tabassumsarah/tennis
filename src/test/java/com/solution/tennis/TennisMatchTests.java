@@ -82,11 +82,12 @@ public class TennisMatchTests {
         match.pointWonBy("Player 1");
         match.pointWonBy("Player 1");
         match.pointWonBy("Player 1");
-        match.pointWonBy("Player 1");
 
         match.pointWonBy("Player 2");
         match.pointWonBy("Player 2");
         match.pointWonBy("Player 2");
+
+        match.pointWonBy("Player 1");
 
         assertEquals("0-0, Advantage Player 1", match.score());
     }
@@ -117,10 +118,6 @@ public class TennisMatchTests {
         match.pointWonBy("Player 1");
         match.pointWonBy("Player 1");
         match.pointWonBy("Player 1");
-
-        match.pointWonBy("Player 2");
-        match.pointWonBy("Player 2");
-
         assertEquals("0-0,1-0", match.score());
     }
 
@@ -199,7 +196,6 @@ public class TennisMatchTests {
 
         match.pointWonBy("Player 2");
         assertEquals("0-0,0-2", match.score());
-
     }
 
 }
