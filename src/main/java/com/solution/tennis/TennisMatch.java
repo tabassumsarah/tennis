@@ -33,18 +33,19 @@ public class TennisMatch {
 
 
     private String translateScore(int player1Score, int player2Score) {
-        //Situation: Win
+        //Situation: Advantage, deuce
         if (player1Score >= 3 || player2Score >= 3) {
+
             if (player1Score == player2Score) {
                 return "0-0," + "deuce";
             }
             if (player1Score > 3 || player2Score > 3) {
-               if(player1Score > player2Score){
-                   if(player1Score-player2Score < 2 ){
-                       return "0-0," + "Advantage Player 1";
-                   }
-               } else if(player2Score-player1Score < 2 ){
-                    return "0-0," + "Advantage Player 2";
+                if (Math.abs(player1Score - player2Score) < 2) {
+                    if (player1Score > player2Score) {
+                        return "0-0," + "Advantage Player 1";
+                    } else {
+                        return "0-0," + "Advantage Player 2";
+                    }
                 }
             }
         }
