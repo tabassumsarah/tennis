@@ -65,7 +65,7 @@ public class ScoreUtil {
     }
 
     static boolean setIsTie(int playerOneGameScore, int playerTwoGameScore) {
-        if (playerOneGameScore == playerTwoGameScore ) {
+        if (playerOneGameScore == playerTwoGameScore) {
             if (playerOneGameScore == 6) {
                 return true;
             }
@@ -75,23 +75,24 @@ public class ScoreUtil {
     }
 
     static int[] translateTieScore(Integer player1, Integer player2) {
-        if(player1==7 || player2==7){
-            if (Math.abs(player1- player2) >= 2){
-                if(player1>player2){
-                    return new int[]{1,0};
-                }else{
-                    return new int[]{0,1};
+        if (player1 == 7 || player2 == 7) {
+            if (Math.abs(player1 - player2) >= 2) {
+                if (player1 > player2) {
+                    return new int[]{1, 0};
+                } else {
+                    return new int[]{0, 1};
                 }
             }
         }
 
-        return new int[]{0,0};
+        return new int[]{0, 0};
     }
-    static  int[]  getSetScoreIfApplicable(int playerOneGameScore, int playerTwoGameScore) {
+
+    static int[] getSetScoreIfApplicable(int playerOneGameScore, int playerTwoGameScore) {
         if (playerOneGameScore > playerTwoGameScore) {
-            return new int[]{1,0};
+            return new int[]{1, 0};
         } else {
-            return new int[]{0,1};
+            return new int[]{0, 1};
         }
     }
 
