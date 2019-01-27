@@ -71,7 +71,7 @@ public class TennisMatchTests {
         match.pointWonBy("Player 2");
         match.pointWonBy("Player 2");
 
-        assertEquals("0-0,deuce", match.score());
+        assertEquals("0-0, Deuce", match.score());
     }
 
     @Test
@@ -88,7 +88,7 @@ public class TennisMatchTests {
         match.pointWonBy("Player 2");
         match.pointWonBy("Player 2");
 
-        assertEquals("0-0,Advantage Player 1", match.score());
+        assertEquals("0-0, Advantage Player 1", match.score());
     }
 
     @Test
@@ -105,8 +105,25 @@ public class TennisMatchTests {
         match.pointWonBy("Player 2");
         match.pointWonBy("Player 2");
 
-        assertEquals("0-0,Advantage Player 2", match.score());
+        assertEquals("0-0, Advantage Player 2", match.score());
     }
+
+    @Test
+    public void Should_GetScore10WhenPlayer1Scores4AndPlayer2Scores2() throws Exception {
+        TennisMatch match = new TennisMatch("Player 1","Player 2");
+        assertNotNull(match);
+
+        match.pointWonBy("Player 1");
+        match.pointWonBy("Player 1");
+        match.pointWonBy("Player 1");
+        match.pointWonBy("Player 1");
+
+        match.pointWonBy("Player 2");
+        match.pointWonBy("Player 2");
+
+        assertEquals("1-0", match.score());
+    }
+
 
 
 }
