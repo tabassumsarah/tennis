@@ -8,9 +8,6 @@ public class TennisMatch {
     private String player1;
     private String player2;
 
-    private static final String[] runningScore
-            = new String[]{"0", "15", "30", "40"};
-
     private Integer[] gameScore = new Integer[]{0, 0};
 
     TennisMatch(String player1, String player2) {
@@ -31,44 +28,7 @@ public class TennisMatch {
         gameScore[playerId] = gameScore[playerId] + 1;
     }
 
-    private String advantage(int player1Score, int player2Score) {
-        if (player1Score > player2Score) {
-            return "0-0," + " Advantage Player 1";
-        } else {
-            return "0-0," + " Advantage Player 2";
-        }
-    }
-
-    private String win(int player1Score, int player2Score) {
-        if (player1Score > player2Score) {
-            return "1-0";
-        } else {
-            return "0-1";
-        }
-    }
-
-    private String winOrAdvantage(int player1Score, int player2Score) {
-        if (Math.abs(player1Score - player2Score) < 2) {
-            return advantage(player1Score, player2Score);
-        } else {
-            return win(player1Score, player2Score);
-        }
-    }
-
-    private String translateScore(int player1Score, int player2Score) {
-        //Situation: Advantage, deuce
-        if (player1Score >= 3 || player2Score >= 3) {
-            if (player1Score == player2Score) {
-                return "0-0," + " Deuce";
-            }
-            if (player1Score > 3 || player2Score > 3) {
-                return winOrAdvantage(player1Score, player2Score);
-            }
-        }
-        return "0-0," + runningScore[player1Score] + "-" + runningScore[player2Score];
-    }
-
     String score() {
-        return translateScore(gameScore[0], gameScore[1]);
+        return ScoreUtil.translateScore(gameScore[0], gameScore[1]);
     }
 }
