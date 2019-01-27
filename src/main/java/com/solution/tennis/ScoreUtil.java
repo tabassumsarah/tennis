@@ -49,4 +49,18 @@ public class ScoreUtil {
         }
     }
 
+    static boolean isGameWinLooseState(String result){
+        return result.contains("Win");
+    }
+
+    static int[] getFinalGameScore(String result){
+        if (result.contains("Win")) {
+            int idx = result.lastIndexOf('#');
+            String s = result.substring(idx + 1, result.length());
+            String[] a = s.split("-");
+            return new int[]{Integer.valueOf(a[0]),Integer.valueOf(a[1])};
+        }
+        return new int[]{0,0};
+    }
+
 }
