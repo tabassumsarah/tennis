@@ -12,9 +12,8 @@ import static org.junit.Assert.assertNotNull;
 public class TennisMatchTests {
     @Test
     public void Should_CreateGame_WhenNoLogic() throws Exception {
-         TennisMatch match = new TennisMatch("Player 1","Player 2");
+        TennisMatch match = new TennisMatch("Player 1","Player 2");
         assertNotNull(match);
-        match.pointWonBy("Player 1");
     }
 
     @Test
@@ -118,7 +117,7 @@ public class TennisMatchTests {
         match.pointWonBy("Player 1");
         match.pointWonBy("Player 1");
         match.pointWonBy("Player 1");
-        assertEquals("0-0,1-0", match.score());
+        assertEquals("1-0", match.score());
     }
 
     @Test
@@ -126,15 +125,12 @@ public class TennisMatchTests {
         TennisMatch match = new TennisMatch("Player 1","Player 2");
         assertNotNull(match);
 
-        match.pointWonBy("Player 1");
-        match.pointWonBy("Player 1");
-
         match.pointWonBy("Player 2");
         match.pointWonBy("Player 2");
         match.pointWonBy("Player 2");
         match.pointWonBy("Player 2");
 
-        assertEquals("0-0,0-1", match.score());
+        assertEquals("0-1", match.score());
     }
 
     @Test
@@ -152,7 +148,7 @@ public class TennisMatchTests {
         assertEquals("0-0,40-0", match.score());
 
         match.pointWonBy("Player 1");
-        assertEquals("0-0,1-0", match.score());
+        assertEquals("1-0", match.score());
 
         match.pointWonBy("Player 1");
         assertEquals("0-0,15-0", match.score());
@@ -164,7 +160,7 @@ public class TennisMatchTests {
         assertEquals("0-0,40-0", match.score());
 
         match.pointWonBy("Player 1");
-        assertEquals("0-0,2-0", match.score());
+        assertEquals("2-0", match.score());
 
     }
 
@@ -183,7 +179,7 @@ public class TennisMatchTests {
         assertEquals("0-0,0-40", match.score());
 
         match.pointWonBy("Player 2");
-        assertEquals("0-0,0-1", match.score());
+        assertEquals("0-1", match.score());
 
         match.pointWonBy("Player 2");
         assertEquals("0-0,0-15", match.score());
@@ -195,7 +191,284 @@ public class TennisMatchTests {
         assertEquals("0-0,0-40", match.score());
 
         match.pointWonBy("Player 2");
-        assertEquals("0-0,0-2", match.score());
+        assertEquals("0-2", match.score());
     }
+
+    @Test
+    public void Should_GetScoreForSet10WhenPlayer2Wins6GamesPlayer1WinsNone() throws Exception {
+        TennisMatch match = new TennisMatch("Player 1","Player 2");
+        assertNotNull(match);
+
+        // one game
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-15", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-30", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-40", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-1", match.score());
+
+
+        // Two game
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-15", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-30", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-40", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-2", match.score());
+
+
+        // Three game
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-15", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-30", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-40", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-3", match.score());
+
+
+        // Four game
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-15", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-30", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-40", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-4", match.score());
+
+
+        // Five game
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-15", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-30", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-40", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-5", match.score());
+
+
+       // Six game
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-15", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-30", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-40", match.score());
+
+        // Set won
+        match.pointWonBy("Player 2");
+        assertEquals("0-1,0-6", match.score());
+
+    }
+
+
+    @Test
+    public void Should_GetScoreForSet10Game65WhenPlayer1Wins6GamesPlayer1Wins5() throws Exception {
+        TennisMatch match = new TennisMatch("Player 1","Player 2");
+        assertNotNull(match);
+
+        // one game player 1
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-15", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-30", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-40", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-1", match.score());
+
+
+        // one game player 1
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,15-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,30-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,40-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("1-1", match.score());
+
+
+        // Two game player 2
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-15", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-30", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-40", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("1-2", match.score());
+
+        //Two game player 1
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,15-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,30-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,40-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("2-2", match.score());
+
+
+
+        // Three game
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-15", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-30", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-40", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("2-3", match.score());
+
+
+        //Three game player 1
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,15-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,30-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,40-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("3-3", match.score());
+
+
+
+        // Four game
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-15", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-30", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-40", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("3-4", match.score());
+
+
+        //Three game player 1
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,15-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,30-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,40-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("4-4", match.score());
+
+
+
+        // Five game
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-15", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-30", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-40", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("4-5", match.score());
+
+
+        //Five game player 1
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,15-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,30-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("0-0,40-0", match.score());
+
+        match.pointWonBy("Player 1");
+        assertEquals("5-5", match.score());
+
+
+        // Six game
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-15", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-30", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-40", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("5-6", match.score());
+
+        // Seven game
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-15", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-30", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-0,0-40", match.score());
+
+        match.pointWonBy("Player 2");
+        assertEquals("0-1,5-7", match.score());
+
+
+
+        // Set won
+       // assertEquals("0-1,5-7", match.score());
+
+
+
+
+    }
+
+
 
 }

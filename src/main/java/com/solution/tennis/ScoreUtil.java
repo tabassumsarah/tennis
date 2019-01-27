@@ -49,18 +49,38 @@ public class ScoreUtil {
         }
     }
 
-    static boolean isGameWinLooseState(String result){
+    static boolean isGameWinLooseState(String result) {
         return result.contains("Win");
     }
 
-    static int[] getFinalGameScore(String result){
+    static boolean setWon(int playerOneGameScore, int playerTwoGameScore) {
+        if (playerOneGameScore >= 6 || playerTwoGameScore >= 6) {
+            if (Math.abs(playerOneGameScore - playerTwoGameScore) >= 2) {
+                return true;
+            }
+        }
+        return false;
+
+
+    }
+
+    static  int[]  getSetScoreIfApplicable(int playerOneGameScore, int playerTwoGameScore) {
+        if (playerOneGameScore > playerTwoGameScore) {
+            return new int[]{1,0};
+        } else {
+            return new int[]{0,1};
+        }
+    }
+
+
+    static int[] getFinalGameScore(String result) {
         if (result.contains("Win")) {
             int idx = result.lastIndexOf('#');
             String s = result.substring(idx + 1, result.length());
             String[] a = s.split("-");
-            return new int[]{Integer.valueOf(a[0]),Integer.valueOf(a[1])};
+            return new int[]{Integer.valueOf(a[0]), Integer.valueOf(a[1])};
         }
-        return new int[]{0,0};
+        return new int[]{0, 0};
     }
 
 }
