@@ -37,14 +37,22 @@ public class TennisMatch {
         if (player1Score >= 3 || player2Score >= 3) {
 
             if (player1Score == player2Score) {
-                return "0-0," + "deuce";
+                return "0-0," + " Deuce";
             }
             if (player1Score > 3 || player2Score > 3) {
                 if (Math.abs(player1Score - player2Score) < 2) {
                     if (player1Score > player2Score) {
-                        return "0-0," + "Advantage Player 1";
+                        return "0-0," + " Advantage Player 1";
                     } else {
-                        return "0-0," + "Advantage Player 2";
+                        return "0-0," + " Advantage Player 2";
+                    }
+                }
+
+                if (Math.abs(player1Score - player2Score) >= 2) {
+                    if (player1Score > player2Score) {
+                        return "1-0";
+                    } else {
+                        return "0-1";
                     }
                 }
             }
