@@ -75,7 +75,7 @@ public class TennisMatchTests {
     }
 
     @Test
-    public void Should_GetScoreAdvantagePlayer1WhenPlayer1Scores34AndPlayer2Scores3() throws Exception {
+    public void Should_GetScoreAdvantagePlayer1WhenPlayer1Scores4AndPlayer2Scores3() throws Exception {
         TennisMatch match = new TennisMatch("Player 1","Player 2");
         assertNotNull(match);
 
@@ -89,6 +89,23 @@ public class TennisMatchTests {
         match.pointWonBy("Player 2");
 
         assertEquals("0-0,Advantage Player 1", match.score());
+    }
+
+    @Test
+    public void Should_GetScoreAdvantagePlayer2WhenPlayer2Scores4AndPlayer1Scores3() throws Exception {
+        TennisMatch match = new TennisMatch("Player 1","Player 2");
+        assertNotNull(match);
+
+        match.pointWonBy("Player 1");
+        match.pointWonBy("Player 1");
+        match.pointWonBy("Player 1");
+
+        match.pointWonBy("Player 2");
+        match.pointWonBy("Player 2");
+        match.pointWonBy("Player 2");
+        match.pointWonBy("Player 2");
+
+        assertEquals("0-0,Advantage Player 2", match.score());
     }
 
 
