@@ -11,6 +11,9 @@ public class TennisMatch {
     private Integer[] gameScore = new Integer[]{0, 0};
     private Integer[] setScore = new Integer[]{0, 0};
     private Integer[] finalGameScore = new Integer[]{0, 0};
+    private Integer[] tieBreakResult = new Integer[]{0, 0};
+
+    static boolean setTie = false;
     String resultString = "0-0,0-0";
 
     TennisMatch(String player1, String player2) {
@@ -30,6 +33,9 @@ public class TennisMatch {
     private void increasePointByOne(int playerId) {
         gameScore[playerId] = gameScore[playerId] + 1;
         // update match score every time a game is in win-loose situation
+        if(setTie){
+            tieBreakResult[playerId]=tieBreakResult[playerId]+1;
+        }
         calculate();
 
     }
@@ -38,7 +44,7 @@ public class TennisMatch {
 
         String resultForWin = ScoreUtil.translateScoreForMatchGame(gameScore[0], gameScore[1]);
 
-        if (ScoreUtil.isGameWinLooseState(resultForWin)) {
+        if (!setTie && ScoreUtil.isGameWinLooseState(resultForWin)) {
             int[] arr = ScoreUtil.getFinalGameScore(resultForWin);
             updateFinalGameScore(arr);
             resultString = finalGameScore[0].toString() + "-" + finalGameScore[1].toString();
@@ -47,12 +53,25 @@ public class TennisMatch {
         }
 
         boolean setWon = ScoreUtil.setWon(finalGameScore[0], finalGameScore[1]);
+
+        setTie = ScoreUtil.setIsTie(finalGameScore[0], finalGameScore[1]);
+
+        if(setTie){
+            int[] tieRes = ScoreUtil.translateTieScore(tieBreakResult[0],tieBreakResult[1]);
+            if(tieRes[0]!=tieRes[1]){
+                resultString = tieRes[0]==0 ?  "Player 2": "Player 1";
+                resultString= resultString + " wins";
+            }else{
+                resultString= "tie is on," + tieBreakResult[0].toString()+"-"+tieBreakResult[1].toString();
+            }
+            return;
+
+        }
         if (setWon) {
             int[] setScore = ScoreUtil.getSetScoreIfApplicable(finalGameScore[0], finalGameScore[1]);
             updateFinalSetScore(setScore);
             resultString = setScore[0] + "-" + setScore[1] + "," + finalGameScore[0].toString() + "-" + finalGameScore[1].toString();
         }
-
 
     }
 
