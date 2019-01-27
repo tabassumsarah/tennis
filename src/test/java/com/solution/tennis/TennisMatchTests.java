@@ -124,6 +124,21 @@ public class TennisMatchTests {
         assertEquals("1-0", match.score());
     }
 
+    @Test
+    public void Should_GetScore10WhenPlayer2Scores4AndPlayer1Scores2() throws Exception {
+        TennisMatch match = new TennisMatch("Player 1","Player 2");
+        assertNotNull(match);
+
+        match.pointWonBy("Player 1");
+        match.pointWonBy("Player 1");
+
+        match.pointWonBy("Player 2");
+        match.pointWonBy("Player 2");
+        match.pointWonBy("Player 2");
+        match.pointWonBy("Player 2");
+
+        assertEquals("0-1", match.score());
+    }
 
 
 }
