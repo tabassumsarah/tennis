@@ -74,5 +74,22 @@ public class TennisMatchTests {
         assertEquals("0-0,deuce", match.score());
     }
 
+    @Test
+    public void Should_GetScoreAdvantagePlayer1WhenPlayer1Scores34AndPlayer2Scores3() throws Exception {
+        TennisMatch match = new TennisMatch("Player 1","Player 2");
+        assertNotNull(match);
+
+        match.pointWonBy("Player 1");
+        match.pointWonBy("Player 1");
+        match.pointWonBy("Player 1");
+        match.pointWonBy("Player 1");
+
+        match.pointWonBy("Player 2");
+        match.pointWonBy("Player 2");
+        match.pointWonBy("Player 2");
+
+        assertEquals("0-0,Advantage Player 1", match.score());
+    }
+
 
 }

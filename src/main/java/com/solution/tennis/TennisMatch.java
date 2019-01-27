@@ -31,7 +31,7 @@ public class TennisMatch {
         gameScore[playerId] = gameScore[playerId] + 1;
     }
 
-
+    
     private String translateScore(int player1Score, int player2Score) {
         //Situation: Win
         if (player1Score >= 3 || player2Score >= 3) {
