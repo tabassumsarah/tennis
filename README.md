@@ -42,7 +42,9 @@ More information on tennis scoring can be found here https://en.wikipedia.org/wi
 # Project:
 1. Java 8
 2. Need to have jdk 8 installed and java set in your class path to use following commands.
-3. Need to have Gradle installed to build the project and to run tests.
+3. Need to have Gradle installed to build the project.
+4. to run tests, gradlew test
+5. There is no main file and cmd tool for this project.
 
 # Overview
 1. All scoring logic is implemented in a seperate class.pointWonBy() and score() is implemented in one class.
