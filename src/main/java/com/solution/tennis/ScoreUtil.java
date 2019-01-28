@@ -61,8 +61,6 @@ public class ScoreUtil {
             }
         }
         return false;
-
-
     }
 
     //Check if current set result is tie-break
@@ -73,7 +71,6 @@ public class ScoreUtil {
             }
         }
         return false;
-
     }
 
     static String translateTieScore(Integer player1Score, Integer player2Score, String player1, String player2) {
@@ -86,7 +83,6 @@ public class ScoreUtil {
                 }
             }
         }
-
         return TIE_IS_ON + "," + player1Score.toString() + "-" + player2Score.toString();
     }
 
