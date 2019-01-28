@@ -3,7 +3,7 @@ package com.solution.tennis;
 /**
  * Created by saraht on 26/01/2019.
  */
-public class TennisMatch {
+public class TennisMatch implements Match {
 
     private String player1;
     private String player2;
@@ -21,7 +21,11 @@ public class TennisMatch {
         this.player2 = player2;
     }
 
-    void pointWonBy(String player) {
+    public String score() {
+        return currentScore;
+    }
+
+    public void pointWonBy(String player) {
         int playerOne = 0;
         int playerTwo = 1;
 
@@ -79,10 +83,6 @@ public class TennisMatch {
 
     private boolean isCurrentSetWon() {
         return ScoreUtil.setWon(finalGameScore[0], finalGameScore[1]);
-    }
-
-    String score() {
-        return currentScore;
     }
 
     private void resetGameScore() {
