@@ -48,14 +48,17 @@ More information on tennis scoring can be found here https://en.wikipedia.org/wi
 
 # Overview
 1. All scoring logic is implemented in a seperate class.pointWonBy() and score() is implemented in one class.
-2. Code Implementation can be found under *src\main\java\com\solution\tennis\*
-3. Unit tests are located in *\src\main\test\com\solution\tennis\*
+2. Implemented runnign logic for a game, set and tie break
+3. Code Implementation can be found under *src\main\java\com\solution\tennis\*
+4. Unit tests are located in *\src\main\test\com\solution\tennis\*
 
 # Design Choice and Code Implementation
 - I have tried to seperate out gaming point logic to a util class.
 
 # Limitation
 - Tie break logic could have more vigourous testing
+- Test class for ScoreUtil is missing
+- Should have used Less variables and simpler logic around game and set relation
 
 
 
