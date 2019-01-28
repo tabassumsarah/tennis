@@ -65,6 +65,7 @@ public class ScoreUtil {
 
     }
 
+    //Check if current set result is tie-break
     static boolean setIsTie(int playerOneGameScore, int playerTwoGameScore) {
         if (playerOneGameScore == playerTwoGameScore) {
             if (playerOneGameScore == 6) {
@@ -89,6 +90,8 @@ public class ScoreUtil {
         return TIE_IS_ON + "," + player1Score.toString() + "-" + player2Score.toString();
     }
 
+    // Depending on players winning game numbers this method denotes set score
+    // i.e if player1>4, player2=2-> set result 1,0
     static int[] getSetScoreIfApplicable(int playerOneGameScore, int playerTwoGameScore) {
         if (playerOneGameScore > playerTwoGameScore) {
             return new int[]{1, 0};

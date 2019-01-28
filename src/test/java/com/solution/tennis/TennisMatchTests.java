@@ -257,7 +257,7 @@ public class TennisMatchTests {
 
 
     @Test
-    public void Should_GetScoreForTieBreakWhenPlayer1Wins() throws Exception {
+    public void Should_GetScoreForSetWhenWhenPlayer1WinsTieBreak() throws Exception {
         TennisMatch match = new TennisMatch(player1, player2);
 
         pointWon(4, player2, match);

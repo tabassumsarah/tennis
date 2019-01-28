@@ -7,72 +7,85 @@ public class TennisMatch implements Match {
 
     private String player1;
     private String player2;
-    private String currentScore = "0-0,0-0";
+    //format: array[0] = player1 score, array[1] = player2
+    private int[] runningGameScore = new int[]{0, 0};
+    private int[] finalGameScore = new int[]{0, 0};
 
-    private Integer[] runningGameScore = new Integer[]{0, 0};
-    private Integer[] finalGameScore = new Integer[]{0, 0};
-    private Integer[] setScore = new Integer[]{0, 0};
-    private Integer[] tieBreakScore = new Integer[]{0, 0};
+    private int[] setScore = new int[]{0, 0};
+
+    private int[] tieBreakScore = new int[]{0, 0};
 
     private static boolean tieBreakMode = false;
+    private static String defaultScore = "0-0,0-0";
+    private String score;
 
     TennisMatch(String player1, String player2) {
         this.player1 = player1;
         this.player2 = player2;
+        score = defaultScore;
     }
 
+    /*
+    * At any point of time this method gives current result of the game
+    * */
     public String score() {
-        return currentScore;
+        return score;
     }
 
+    /*
+    * This method denoted who won the point
+    * @param Player name/id*/
     public void pointWonBy(String player) {
         int playerOne = 0;
         int playerTwo = 1;
 
         if (player.equals(this.player1)) {
-            increasePointFor(playerOne);
+            trackPoints(playerOne);
         }
         if (player.equals(this.player2)) {
-            increasePointFor(playerTwo);
+            trackPoints(playerTwo);
         }
     }
 
-    private void increasePointFor(int playerId) {
-        // increase point for respective player
+    /* Method for score counter.
+     Every time @see pointWon(String player) called this method increase players point and keep track.
+     Also checks for tie break scenario, if then starts another scoring system using tieBreakScore array*/
+    private void trackPoints(int playerId) {
         runningGameScore[playerId] = runningGameScore[playerId] + 1;
 
         //if its a tie-break situation calculate separate scoring
         if (tieBreakMode) {
             tieBreakScore[playerId] = tieBreakScore[playerId] + 1;
         }
+        // With the help of ScoreUtil this method builds result string
         scoreCalculation();
     }
 
-
+    //Keeps track of tie break and winning the set scenario using non volatile arrays and help of util class.
     private void scoreCalculation() {
         String runningScore = ScoreUtil.translateScoreForMatchGame(runningGameScore[0], runningGameScore[1]);
 
         if (!tieBreakMode && ScoreUtil.isGameWinLoseState(runningScore)) {
             updateFinalGameScore(runningScore);
-            currentScore = finalGameScore[0].toString() + "-" + finalGameScore[1].toString();
+            score = concatScores(finalGameScore);
         }
 
         if (!tieBreakMode && !ScoreUtil.isGameWinLoseState(runningScore)) {
-            currentScore = setScore[0] + "-" + setScore[1] + "," + runningScore;
+            score = concatScores(setScore) + "," + runningScore;
         }
 
         setTieBreakIfApplied();
 
         if (tieBreakMode) {
-            currentScore = ScoreUtil.translateTieScore(tieBreakScore[0], tieBreakScore[1], player1, player2);
+            score = ScoreUtil.translateTieScore(tieBreakScore[0], tieBreakScore[1], player1, player2);
             return;
 
         }
-
+        // for Set calculation
         if (isCurrentSetWon()) {
             int[] setScore = ScoreUtil.getSetScoreIfApplicable(finalGameScore[0], finalGameScore[1]);
             updateFinalSetScore(setScore[0], setScore[1]);
-            currentScore = setScore[0] + "-" + setScore[1] + "," + finalGameScore[0].toString() + "-" + finalGameScore[1].toString();
+            score = concatScores(setScore) + "," + concatScores(finalGameScore);
         }
 
     }
@@ -83,11 +96,6 @@ public class TennisMatch implements Match {
 
     private boolean isCurrentSetWon() {
         return ScoreUtil.setWon(finalGameScore[0], finalGameScore[1]);
-    }
-
-    private void resetGameScore() {
-        runningGameScore[0] = 0;
-        runningGameScore[1] = 0;
     }
 
     private void updateFinalGameScore(String result) {
@@ -101,5 +109,14 @@ public class TennisMatch implements Match {
         resetGameScore();
         setScore[0] = setScore[0] + player1SetScore;
         setScore[1] = setScore[1] + player2SetScore;
+    }
+
+    private String concatScores(int[] result){
+        return result[0]+ "-" + result[1];
+    }
+
+    private void resetGameScore() {
+        runningGameScore[0] = 0;
+        runningGameScore[1] = 0;
     }
 }
