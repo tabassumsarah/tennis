@@ -7,14 +7,14 @@ public class TennisMatch {
 
     private String player1;
     private String player2;
+    private String currentScore = "0-0,0-0";
 
-    private Integer[] gameScore = new Integer[]{0, 0};
-    private Integer[] setScore = new Integer[]{0, 0};
+    private Integer[] runningGameScore = new Integer[]{0, 0};
     private Integer[] finalGameScore = new Integer[]{0, 0};
+    private Integer[] setScore = new Integer[]{0, 0};
     private Integer[] tieBreakScore = new Integer[]{0, 0};
 
-    static boolean tieBreakMode = false;
-    String resultString = "0-0,0-0";
+    private static boolean tieBreakMode = false;
 
     TennisMatch(String player1, String player2) {
         this.player1 = player1;
@@ -35,47 +35,40 @@ public class TennisMatch {
 
     private void increasePointFor(int playerId) {
         // increase point for respective player
-        gameScore[playerId] = gameScore[playerId] + 1;
+        runningGameScore[playerId] = runningGameScore[playerId] + 1;
 
-        //if its a tie-break situation scoreCalculation separate scoring
+        //if its a tie-break situation calculate separate scoring
         if (tieBreakMode) {
             tieBreakScore[playerId] = tieBreakScore[playerId] + 1;
         }
-
         scoreCalculation();
-
     }
 
-    private void updateResultString() {
-
-    }
 
     private void scoreCalculation() {
+        String runningScore = ScoreUtil.translateScoreForMatchGame(runningGameScore[0], runningGameScore[1]);
 
-        String resultForWin = ScoreUtil.translateScoreForMatchGame(gameScore[0], gameScore[1]);
+        if (!tieBreakMode && ScoreUtil.isGameWinLoseState(runningScore)) {
+            updateFinalGameScore(runningScore);
+            currentScore = finalGameScore[0].toString() + "-" + finalGameScore[1].toString();
+        }
 
-        if (!tieBreakMode && ScoreUtil.isGameWinLoseState(resultForWin)) {
-            int[] arr = ScoreUtil.getFinalGameScore(resultForWin);
-            // if game is in win-lose or vice versa, update final game point by one and return game score
-            updateFinalGameScore(arr);
-            resultString = finalGameScore[0].toString() + "-" + finalGameScore[1].toString();
-        } else {
-            // if game not in final state make the result using current score
-            resultString = setScore[0] + "-" + setScore[1] + "," + resultForWin;
+        if (!tieBreakMode && !ScoreUtil.isGameWinLoseState(runningScore)) {
+            currentScore = setScore[0] + "-" + setScore[1] + "," + runningScore;
         }
 
         setTieBreakIfApplied();
 
         if (tieBreakMode) {
-            resultString = ScoreUtil.translateTieScore(tieBreakScore[0], tieBreakScore[1], player1, player2);
+            currentScore = ScoreUtil.translateTieScore(tieBreakScore[0], tieBreakScore[1], player1, player2);
             return;
 
         }
 
         if (isCurrentSetWon()) {
             int[] setScore = ScoreUtil.getSetScoreIfApplicable(finalGameScore[0], finalGameScore[1]);
-            updateFinalSetScore(setScore);
-            resultString = setScore[0] + "-" + setScore[1] + "," + finalGameScore[0].toString() + "-" + finalGameScore[1].toString();
+            updateFinalSetScore(setScore[0], setScore[1]);
+            currentScore = setScore[0] + "-" + setScore[1] + "," + finalGameScore[0].toString() + "-" + finalGameScore[1].toString();
         }
 
     }
@@ -88,26 +81,25 @@ public class TennisMatch {
         return ScoreUtil.setWon(finalGameScore[0], finalGameScore[1]);
     }
 
-
     String score() {
-        return resultString;
+        return currentScore;
     }
 
     private void resetGameScore() {
-        gameScore[0] = 0;
-        gameScore[1] = 0;
+        runningGameScore[0] = 0;
+        runningGameScore[1] = 0;
     }
 
-    private void updateFinalGameScore(int[] arr) {
+    private void updateFinalGameScore(String result) {
+        int[] scoreAfterAGameIsWon = ScoreUtil.getFinalGameScoreFromResultString(result);
         resetGameScore();
-        finalGameScore[0] = finalGameScore[0] + arr[0];
-        finalGameScore[1] = finalGameScore[1] + arr[1];
+        finalGameScore[0] = finalGameScore[0] + scoreAfterAGameIsWon[0];
+        finalGameScore[1] = finalGameScore[1] + scoreAfterAGameIsWon[1];
     }
 
-    private void updateFinalSetScore(int[] arr) {
+    private void updateFinalSetScore(int player1SetScore, int player2SetScore) {
         resetGameScore();
-        setScore[0] = setScore[0] + arr[0];
-        setScore[1] = setScore[1] + arr[1];
-
+        setScore[0] = setScore[0] + player1SetScore;
+        setScore[1] = setScore[1] + player2SetScore;
     }
 }

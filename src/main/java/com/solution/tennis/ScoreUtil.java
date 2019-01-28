@@ -8,8 +8,9 @@ public class ScoreUtil {
     private static final String[] RUNNING_SCORE = new String[]{"0", "15", "30", "40"};
     private static final String ADVANTAGE_PLAYER_ONE = " Advantage Player 1";
     private static final String ADVANTAGE_PLAYER_TWO = " Advantage Player 2";
+    private static final String TIE_IS_ON = "Tie is on";
     private static final String DEUCE = "Deuce";
-
+    private static final String SET_WON = " won the set";
 
     static String translateScoreForMatchGame(int player1Score, int player2Score) {
         //Situation: Advantage, deuce
@@ -78,16 +79,14 @@ public class ScoreUtil {
         if (player1Score == 7 || player2Score == 7) {
             if (Math.abs(player1Score - player2Score) >= 2) {
                 if (player1Score > player2Score) {
-                    return  player1+ " wins";
-                    //return new int[]{1, 0};
+                    return player1 + SET_WON;
                 } else {
-                    return player2+" wins";
-                    //return new int[]{0, 1};
+                    return player2 + SET_WON;
                 }
             }
         }
 
-        return  "tie is on," + player1Score.toString()+"-"+ player2Score.toString();
+        return TIE_IS_ON + "," + player1Score.toString() + "-" + player2Score.toString();
     }
 
     static int[] getSetScoreIfApplicable(int playerOneGameScore, int playerTwoGameScore) {
@@ -98,15 +97,13 @@ public class ScoreUtil {
         }
     }
 
-
-    static int[] getFinalGameScore(String result) {
+    static int[] getFinalGameScoreFromResultString(String result) {
         if (result.contains("Win")) {
             int idx = result.lastIndexOf('#');
-            String s = result.substring(idx + 1, result.length());
-            String[] a = s.split("-");
-            return new int[]{Integer.valueOf(a[0]), Integer.valueOf(a[1])};
+            String score = result.substring(idx + 1, result.length());
+            String[] results = score.split("-");
+            return new int[]{Integer.valueOf(results[0]), Integer.valueOf(results[1])};
         }
         return new int[]{0, 0};
     }
-
 }
