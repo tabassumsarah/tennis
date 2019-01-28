@@ -49,7 +49,7 @@ public class ScoreUtil {
         }
     }
 
-    static boolean isGameWinLooseState(String result) {
+    static boolean isGameWinLoseState(String result) {
         return result.contains("Win");
     }
 
@@ -74,18 +74,20 @@ public class ScoreUtil {
 
     }
 
-    static int[] translateTieScore(Integer player1, Integer player2) {
-        if (player1 == 7 || player2 == 7) {
-            if (Math.abs(player1 - player2) >= 2) {
-                if (player1 > player2) {
-                    return new int[]{1, 0};
+    static String translateTieScore(Integer player1Score, Integer player2Score, String player1, String player2) {
+        if (player1Score == 7 || player2Score == 7) {
+            if (Math.abs(player1Score - player2Score) >= 2) {
+                if (player1Score > player2Score) {
+                    return  player1+ " wins";
+                    //return new int[]{1, 0};
                 } else {
-                    return new int[]{0, 1};
+                    return player2+" wins";
+                    //return new int[]{0, 1};
                 }
             }
         }
 
-        return new int[]{0, 0};
+        return  "tie is on," + player1Score.toString()+"-"+ player2Score.toString();
     }
 
     static int[] getSetScoreIfApplicable(int playerOneGameScore, int playerTwoGameScore) {
