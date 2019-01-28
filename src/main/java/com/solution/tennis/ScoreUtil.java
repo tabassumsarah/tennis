@@ -100,6 +100,7 @@ public class ScoreUtil {
         }
     }
 
+    //to spit out win#1-0 to array[0]=1, array[1]=0
     static int[] getFinalGameScoreFromResultString(String result) {
         if (result.contains("Win")) {
             int idx = result.lastIndexOf('#');

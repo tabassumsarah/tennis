@@ -8,21 +8,19 @@ public class TennisMatch implements Match {
     private String player1;
     private String player2;
     //format: array[0] = player1 score, array[1] = player2
-    private int[] runningGameScore = new int[]{0, 0};
-    private int[] finalGameScore = new int[]{0, 0};
+    private int[] runningGameScore = new int[]{0, 0}; // game not in final state
+    private int[] finalGameScore = new int[]{0, 0}; //to keep track of each game win and keeping score for set wins
 
-    private int[] setScore = new int[]{0, 0};
-
-    private int[] tieBreakScore = new int[]{0, 0};
+    private int[] setScore = new int[]{0, 0}; // to keep track of set wins
+    private int[] tieBreakScore = new int[]{0, 0}; // to keep track of tie break wins
 
     private static boolean tieBreakMode = false;
-    private static String defaultScore = "0-0,0-0";
-    private String score;
+    private String score = "0-0,0-0";
+    ;
 
     TennisMatch(String player1, String player2) {
         this.player1 = player1;
         this.player2 = player2;
-        score = defaultScore;
     }
 
     /*
@@ -70,7 +68,7 @@ public class TennisMatch implements Match {
             score = concatScores(finalGameScore);
         }
 
-        if (!tieBreakMode && !ScoreUtil.isGameWinLoseState(runningScore)) {
+        if (!ScoreUtil.isGameWinLoseState(runningScore)) {
             score = concatScores(setScore) + "," + runningScore;
         }
 
@@ -111,8 +109,8 @@ public class TennisMatch implements Match {
         setScore[1] = setScore[1] + player2SetScore;
     }
 
-    private String concatScores(int[] result){
-        return result[0]+ "-" + result[1];
+    private String concatScores(int[] result) {
+        return result[0] + "-" + result[1];
     }
 
     private void resetGameScore() {
