@@ -14,6 +14,11 @@ public class TennisMatchTests {
     private String player1 = "Player 1";
     private String player2 = "Player 2";
 
+    private void pointWon(int count, String player, TennisMatch match) {
+        for (int i = 0; i < count; i++) {
+            match.pointWonBy(player);
+        }
+    }
     @Test
     public void Should_CreateGame_WhenNoLogic() throws Exception {
         TennisMatch match = new TennisMatch("Player 1", "Player 2");
@@ -61,11 +66,6 @@ public class TennisMatchTests {
         assertEquals("0-0,0-30", match.score());
     }
 
-    private void pointWon(int count, String player, TennisMatch match) {
-        for (int i = 0; i < count; i++) {
-            match.pointWonBy(player);
-        }
-    }
 
     @Test
     public void Should_GetScoreDeuceWhenBothPlayerScores3() throws Exception {
